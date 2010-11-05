@@ -1,0 +1,9 @@
+= mate
+
+TextMate project builder using git ignores for exclusions
+
+
+
+== Copyright
+
+Copyright (c) 2010 Boba Fat. See LICENSE for details.

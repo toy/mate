@@ -1,0 +1,11 @@
+#!/usr/bin/env ruby
+
+require 'mate'
+
+mate = (IO.popen('which -a mate', &:readlines).map(&:strip) - [__FILE__]).first
+
+if !ARGV.empty? && ARGV.all?{ |arg| File.directory?(arg) }
+  Mate::Tmproj.new(ARGV).open
+else
+  system mate, *ARGV
+end
