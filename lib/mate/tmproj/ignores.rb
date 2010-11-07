@@ -27,9 +27,9 @@ module Mate
     def ignore?(path)
       case
       when path.file?
-        path =~ /#{file_r}/
+        path.to_s =~ /#{file_r}/
       when path.directory?
-        path =~ /#{folder_r}/
+        path.to_s =~ /#{folder_r}/
       end
     end
 
