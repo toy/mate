@@ -1,11 +1,11 @@
-= mate
+# mate
 
 TextMate project builder using git ignores for exclusions
 
-You can add alias `mate='tm'` to your .profile, .bash_profile …
+You can add `alias mate='tm'` to your `.profile`, `.bash_profile` …
 
-When tm command (or mate if aliased) is called with one or more paths and any of them is a directory, than project is created in ~/.tmprojs/ and opened. Its file and folder filters are built based on all types of git ignores (global, .gitignore and .git/info/exclude), also .git folder and certain files (images, archives, media files, logs and some other binary files) are filtered.
+When `tm` command (or `mate` if aliased) is called with one or more paths and any of them is a directory, than project is created in `~/.tmprojs/` and opened. Its file and folder filters are built based on all types of git ignores (global, `.gitignore` and `.git/info/exclude`), also `.git` folder and certain files (images, archives, media files, logs and some other binary files) are filtered.
 
-== Copyright
+## Copyright
 
 Copyright (c) 2010 Boba Fat. See LICENSE for details.
