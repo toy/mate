@@ -19,11 +19,10 @@ module Mate
       dir.find do |path|
         Find.prune if ignore?(path)
         if path.directory?
-          if (ignore_file = path + '.gitignore').file?
-            add(path, ignore_file)
-          end
-          if (ignore_file = path + '.git/info/exclude').file?
-            add(path, ignore_file)
+          %w[.gitignore .tmignore .git/info/exclude].each do |ignore_file_name|
+            if (ignore_file = path + ignore_file_name).file?
+              add(path, ignore_file)
+            end
           end
         end
       end
