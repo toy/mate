@@ -8,7 +8,6 @@ begin
     gem.summary = %Q{TextMate project builder using git ignores for exclusions}
     gem.homepage = "http://github.com/toy/#{name}"
     gem.authors = ['Boba Fat']
-    gem.platform = 'darwin'
     gem.add_dependency 'plist'
   end
 
