@@ -7,7 +7,7 @@ begin
     gem.name = name
     gem.summary = %Q{TextMate project builder using git ignores for exclusions}
     gem.homepage = "http://github.com/toy/#{name}"
-    gem.authors = ['Boba Fat']
+    gem.authors = ['Ivan Kuchin']
     gem.add_dependency 'plist'
   end
 
