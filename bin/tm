@@ -1,11 +1,6 @@
 #!/usr/bin/env ruby
 
-begin
-  require 'mate'
-rescue LoadError
-  require 'rubygems'
-  require 'mate'
-end
+require 'mate'
 
 mate = (IO.popen('which -a mate', &:readlines).map(&:strip) - [__FILE__]).first
 
