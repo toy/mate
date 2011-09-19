@@ -38,10 +38,10 @@ module Mate
     end
 
     def file_r
-      "^#{Regexp.escape(dir)}/(?:#{file_pattern.join('|')})$"
+      "^#{Regexp.escape(dir.to_s)}/(?:#{file_pattern.join('|')})$"
     end
     def folder_r
-      "^#{Regexp.escape(dir)}/(?:#{folder_pattern.join('|')})$"
+      "^#{Regexp.escape(dir.to_s)}/(?:#{folder_pattern.join('|')})$"
     end
 
   private
