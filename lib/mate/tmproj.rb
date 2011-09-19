@@ -37,7 +37,7 @@ module Mate
       file.dirname.mkpath
       file.open('w'){ |f| f.write(data.to_plist) }
 
-      system 'open', file
+      system 'open', file.to_s
     end
 
   private
