@@ -14,7 +14,7 @@ module Mate
       @file_pattern = ["#{DOUBLE_ASTERISK_R}.+\\.(?:#{BINARY_EXTENSIONS.flatten.join('|')})"]
       @folder_pattern = ["#{DOUBLE_ASTERISK_R}.git"]
 
-      add(dir, Pathname(`git config --get core.excludesfile`.strip))
+      add(dir, Pathname(`git config --get core.excludesfile`.strip).expand_path)
 
       dir.find do |path|
         Find.prune if ignore?(path)
