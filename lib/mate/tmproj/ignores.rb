@@ -14,14 +14,14 @@ module Mate
       @file_pattern = ["#{DOUBLE_ASTERISK_R}.+\\.(?:#{BINARY_EXTENSIONS.flatten.join('|')})"]
       @folder_pattern = ["#{DOUBLE_ASTERISK_R}.git"]
 
-      add(dir, Pathname(`git config --get core.excludesfile`.strip).expand_path)
+      process(dir, Pathname(`git config --get core.excludesfile`.strip).expand_path)
 
       dir.find do |path|
         Find.prune if ignore?(path)
         if path.directory?
           %w[.gitignore .tmignore .git/info/exclude].each do |ignore_file_name|
             if (ignore_file = path + ignore_file_name).file?
-              add(path, ignore_file)
+              process(path, ignore_file)
             end
           end
         end
@@ -46,7 +46,7 @@ module Mate
 
   private
 
-    def add(parent, ignore_file)
+    def process(parent, ignore_file)
       current_file_pattern = []
       current_folder_pattern = []
       ignore_file.readlines.map do |line|
