@@ -15,6 +15,7 @@ module Mate
       @folder_pattern = ["#{DOUBLE_ASTERISK_R}.git"]
 
       process(dir, Pathname(`git config --get core.excludesfile`.strip).expand_path)
+      process(dir, Pathname('~/.tmignore').expand_path)
 
       dir.find do |path|
         Find.prune if ignore?(path)
