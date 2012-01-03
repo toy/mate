@@ -47,6 +47,7 @@ module Mate
   private
 
     def process(parent, ignore_file)
+      return unless ignore_file.exist?
       current_file_pattern = []
       current_folder_pattern = []
       ignore_file.readlines.map do |line|
