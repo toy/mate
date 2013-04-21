@@ -67,7 +67,7 @@ module Mate
       current_file_pattern = current_file_pattern.join('|')
       current_folder_pattern = current_folder_pattern.join('|')
       unless parent == dir
-        parent_pattern = Regexp.escape(parent.relative_path_from(dir))
+        parent_pattern = Regexp.escape(parent.relative_path_from(dir).to_s)
         current_file_pattern = "#{parent_pattern}/(?:#{current_file_pattern})"
         current_folder_pattern = "#{parent_pattern}/(?:#{current_folder_pattern})"
       end
