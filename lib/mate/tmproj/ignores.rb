@@ -56,7 +56,7 @@ module Mate
       end.reject do |line|
         line.empty? || %w[# !].include?(line[0, 1])
       end.each do |line|
-        pattern = Regexp.escape(line).gsub(/\\\*+/, '[^/]*') # understand only * pattern
+        pattern = glob2regexp(line)
         pattern = "#{DOUBLE_ASTERISK_R}#{pattern}" unless line['/']
         pattern.sub!(/^\//, '')
         unless pattern.sub!(/\/$/, '')
@@ -73,6 +73,27 @@ module Mate
       end
       file_pattern << current_file_pattern
       folder_pattern << current_folder_pattern
+    end
+
+    def glob2regexp(glob)
+      glob.gsub(/\[([^\]]*)\]|\{([^\}]*)\}|(\*+)|(\?+)|./) do |m|
+        case
+        when $1
+          "[#{Regexp.escape($1)}]"
+        when $2
+          "(?:#{Regexp.escape($2).split(',').join('|')})"
+        when $3 == '*'
+          '[^/]*'
+        when $3
+          '.*'
+        when $4 == '?'
+          '[^/]'
+        when $4
+          "[^/]{#{$4.length}}"
+        else
+          Regexp.escape(m)
+        end
+      end
     end
   end
 end
