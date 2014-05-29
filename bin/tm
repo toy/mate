@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-require 'mate'
+require 'mate/tmproj'
 
 if !ARGV.empty? && ARGV.all?(&File.method(:exist?)) && ARGV.any?(&File.method(:directory?))
   Mate::Tmproj.new(ARGV).open
