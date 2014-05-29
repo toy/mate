@@ -57,8 +57,9 @@ module Mate
         line.empty? || %w[# !].include?(line[0, 1])
       end.each do |line|
         pattern = glob2regexp(line)
-        pattern = "#{DOUBLE_ASTERISK_R}#{pattern}" unless line['/']
-        pattern.sub!(/^\//, '')
+        unless pattern.sub!(/^\//, '')
+          pattern = "#{DOUBLE_ASTERISK_R}#{pattern}"
+        end
         unless pattern.sub!(/\/$/, '')
           current_file_pattern << pattern
         end
