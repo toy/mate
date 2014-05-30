@@ -10,3 +10,4 @@ Makefile
 *.o
 *.bundle
 /tmp/
+/.tm_properties
