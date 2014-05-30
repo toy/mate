@@ -1,5 +1,6 @@
 #!/usr/bin/env ruby
 
+require 'mate/bin'
 require 'mate/tm_properties'
 
 ARGV.each do |arg|
@@ -8,4 +9,4 @@ ARGV.each do |arg|
   end
 end
 
-system 'mate', *ARGV
+system Mate::Bin.v2, *ARGV
