@@ -28,7 +28,7 @@ module Mate
       [
         "exclude = '#{escaped_dir}/#{glob_join(@exclude)}' #{GENERATED_SUFFIX}",
         "excludeDirectories = '#{escaped_dir}/#{glob_join(@exclude_directories)}' #{GENERATED_SUFFIX}",
-      ]
+      ].map{ |line| line.gsub("\r", '\r') }
     end
 
   private
