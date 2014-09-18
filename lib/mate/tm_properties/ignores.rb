@@ -14,9 +14,11 @@ module Mate
 
       dir.find do |path|
         if path.directory?
+          relative_path = path.relative_path_from(dir).to_s
+          Find.prune if ignore_dir?(relative_path)
           %w[.gitignore .tmignore .git/info/exclude].each do |ignore_file_name|
             if (ignore_file = path + ignore_file_name).file?
-              process(dir, path.relative_path_from(dir).to_s, ignore_file)
+              process(dir, relative_path, ignore_file)
             end
           end
         end
@@ -32,6 +34,14 @@ module Mate
     end
 
   private
+
+    def ignore_dir?(path)
+      [@exclude, @exclude_directories].any? do |patterns|
+        patterns.any? do |pattern|
+          File.fnmatch(pattern, path, File::FNM_PATHNAME)
+        end
+      end
+    end
 
     def process(parent, subdirectory, ignore_file)
       return unless ignore_file.exist?
