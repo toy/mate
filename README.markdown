@@ -8,4 +8,4 @@ When `tm` command (or `mate` if aliased) is called with one or more paths and an
 
 ## Copyright
 
-Copyright (c) 2010-2014 Ivan Kuchin. See LICENSE.txt for details.
+Copyright (c) 2010-2017 Ivan Kuchin. See LICENSE.txt for details.
