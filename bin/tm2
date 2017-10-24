@@ -4,7 +4,7 @@ require 'mate/bin'
 require 'mate/tm_properties'
 
 ARGV.each do |arg|
-  if File.directory?(arg) && File.directory?(File.join(arg, '.git'))
+  if File.directory?(arg)
     Mate::TmProperties.new(arg).save
   end
 end
