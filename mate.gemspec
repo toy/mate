@@ -4,7 +4,7 @@ Gem::Specification.new do |s|
   s.name        = 'mate'
   s.version     = '2.1.1'
   s.summary     = %q{TextMate project builder and TextMate 2 properties builder using git ignores for exclusions}
-  s.homepage    = "http://github.com/toy/#{s.name}"
+  s.homepage    = "https://github.com/toy/#{s.name}"
   s.authors     = ['Ivan Kuchin']
   s.license     = 'MIT'
 
