@@ -1,3 +1,5 @@
+require 'mate/git'
+
 module Mate
   class Tmproj::Ignores
     BINARY_EXTENSIONS = [
@@ -14,8 +16,8 @@ module Mate
       @file_pattern = ["#{DOUBLE_ASTERISK_R}.+\\.(?:#{BINARY_EXTENSIONS.flatten.join('|')})"]
       @folder_pattern = ["#{DOUBLE_ASTERISK_R}.git"]
 
-      process(dir, Pathname(`git config --get core.excludesfile`.strip).expand_path)
-      process(dir, Pathname('~/.tmignore').expand_path)
+      process(dir, Git.excludesfile(dir))
+      process(dir, Git.global_tmignore)
 
       dir.find do |path|
         Find.prune if ignore?(path)

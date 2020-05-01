@@ -1,3 +1,5 @@
+require 'mate/git'
+
 module Mate
   class TmProperties::Ignores
     GENERATED_SUFFIX = '## GENERATED ##'
@@ -9,8 +11,8 @@ module Mate
       @exclude = ['**/.git']
       @exclude_directories = []
 
-      process(dir, '.', Pathname(`git config --get core.excludesfile`.strip).expand_path)
-      process(dir, '.', Pathname('~/.tmignore').expand_path)
+      process(dir, '.', Git.excludesfile(dir))
+      process(dir, '.', Git.global_tmignore)
 
       dir.find do |path|
         next unless path.directory?
