@@ -1,6 +1,6 @@
 module Mate
   class TmProperties::Ignores
-    GENERATED_SUFFIX = "## GENERATED ##"
+    GENERATED_SUFFIX = '## GENERATED ##'
     GENERATED_R = /^exclude(?:Directories)? = .* #{Regexp.escape(GENERATED_SUFFIX)}$/
 
     attr_reader :dir
@@ -13,13 +13,13 @@ module Mate
       process(dir, '.', Pathname('~/.tmignore').expand_path)
 
       dir.find do |path|
-        if path.directory?
-          relative_path = path.relative_path_from(dir).to_s
-          Find.prune if ignore_dir?(relative_path)
-          %w[.gitignore .tmignore .git/info/exclude].each do |ignore_file_name|
-            if (ignore_file = path + ignore_file_name).file?
-              process(dir, relative_path, ignore_file)
-            end
+        next unless path.directory?
+
+        relative_path = path.relative_path_from(dir).to_s
+        Find.prune if ignore_dir?(relative_path)
+        %w[.gitignore .tmignore .git/info/exclude].each do |ignore_file_name|
+          if (ignore_file = path + ignore_file_name).file?
+            process(dir, relative_path, ignore_file)
           end
         end
       end
