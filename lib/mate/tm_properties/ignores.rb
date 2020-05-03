@@ -20,7 +20,9 @@ module Mate
       dir.find do |path|
         next unless path.lstat.directory?
 
-        if dir != path && (path + '.git').exist?
+        toplevel = dir == path
+
+        if !toplevel && (path + '.git').exist?
           TmProperties.new(path).save
           Find.prune
         else
@@ -28,6 +30,10 @@ module Mate
           Find.prune if ignore_dir?(relative_path)
           %w[.gitignore .tmignore].each do |ignore_file_name|
             process(relative_path, path + ignore_file_name)
+          end
+
+          if !toplevel && (path + '.tm_properties').exist?
+            TmProperties.new(path).cleanup
           end
         end
       end
