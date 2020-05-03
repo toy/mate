@@ -18,12 +18,17 @@ module Mate
       end
 
       dir.find do |path|
-        next unless path.directory?
+        next unless path.lstat.directory?
 
-        relative_path = path.relative_path_from(dir).to_s
-        Find.prune if ignore_dir?(relative_path)
-        %w[.gitignore .tmignore].each do |ignore_file_name|
-          process(relative_path, path + ignore_file_name)
+        if dir != path && (path + '.git').exist?
+          TmProperties.new(path).save
+          Find.prune
+        else
+          relative_path = path.relative_path_from(dir).to_s
+          Find.prune if ignore_dir?(relative_path)
+          %w[.gitignore .tmignore].each do |ignore_file_name|
+            process(relative_path, path + ignore_file_name)
+          end
         end
       end
     end
