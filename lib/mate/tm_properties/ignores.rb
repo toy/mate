@@ -11,18 +11,19 @@ module Mate
       @exclude = ['**/.git']
       @exclude_directories = []
 
-      process(dir, '.', Git.excludesfile(dir))
-      process(dir, '.', Git.global_tmignore)
+      process('.', Git.excludesfile(dir))
+      process('.', Git.global_tmignore)
+      if (git_dir = Git.git_dir(dir))
+        process('.', git_dir + 'info/exclude')
+      end
 
       dir.find do |path|
         next unless path.directory?
 
         relative_path = path.relative_path_from(dir).to_s
         Find.prune if ignore_dir?(relative_path)
-        %w[.gitignore .tmignore .git/info/exclude].each do |ignore_file_name|
-          if (ignore_file = path + ignore_file_name).file?
-            process(dir, relative_path, ignore_file)
-          end
+        %w[.gitignore .tmignore].each do |ignore_file_name|
+          process(relative_path, path + ignore_file_name)
         end
       end
     end
@@ -45,8 +46,8 @@ module Mate
       end
     end
 
-    def process(parent, subdirectory, ignore_file)
-      return unless ignore_file.exist?
+    def process(subdirectory, ignore_file)
+      return unless ignore_file && ignore_file.exist?
 
       prefix = subdirectory == '.' ? '' : glob_escape("#{subdirectory}/")
 
