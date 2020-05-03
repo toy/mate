@@ -1,18 +1,22 @@
 require 'pathname'
+require 'mate/git'
 
 module Mate
   class TmProperties
-    attr_reader :dir, :file
+    def self.create(dir)
+      new(Git.toplevel(dir) || dir).save
+    end
+
     def initialize(dir)
       @dir = Pathname(dir).expand_path
       @file = @dir + '.tm_properties'
     end
 
     def save
-      ignores = Ignores.new(dir)
+      ignores = Ignores.new(@dir)
 
-      lines = if file.exist?
-        file.readlines.reject do |line|
+      lines = if @file.exist?
+        @file.readlines.reject do |line|
           line =~ Ignores::GENERATED_R
         end
       else

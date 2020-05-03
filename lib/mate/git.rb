@@ -9,6 +9,10 @@ module Mate
         expand_path '~/.tmignore'
       end
 
+      def toplevel(workind_dir)
+        expand_path IO.popen(%W[git -C #{workind_dir} rev-parse --show-toplevel], err: '/dev/null', &:read)
+      end
+
     private
 
       def expand_path(path)

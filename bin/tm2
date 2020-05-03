@@ -5,7 +5,7 @@ require 'mate/tm_properties'
 
 ARGV.each do |arg|
   if File.directory?(arg)
-    Mate::TmProperties.new(arg).save
+    Mate::TmProperties.create(arg)
   end
 end
 
