@@ -3,10 +3,6 @@ require 'shellwords'
 module Mate
   module Bin
     class << self
-      def v1
-        mate_version(/^mate r\d+/) or abort 'Can\'t find mate binary v1'
-      end
-
       def v2
         mate_version(/^mate 2.\d+/) or abort 'Can\'t find mate binary v2'
       end
