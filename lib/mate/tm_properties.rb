@@ -3,19 +3,20 @@ require 'mate/git'
 
 module Mate
   class TmProperties
-    def self.create(dir)
-      new(Git.toplevel(dir) || dir).save
+    def self.create(dir, options)
+      new(Git.toplevel(dir) || dir, options).save
     end
 
-    def initialize(dir)
+    def initialize(dir, options)
       @dir = Pathname(dir).expand_path
       @file = @dir + '.tm_properties'
       @lines = @file.exist? ? @file.read.split("\n") : []
       @other_lines = @lines.reject{ |line| line =~ Ignores::GENERATED_R }
+      @options = options
     end
 
     def save
-      ignores = Ignores.new(@dir)
+      ignores = Ignores.new(@dir, @options)
 
       write(ignores.lines + @other_lines)
     end

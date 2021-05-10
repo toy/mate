@@ -6,14 +6,14 @@ module Mate
     GENERATED_R = /^exclude(?:Directories)? = .* #{Regexp.escape(GENERATED_SUFFIX)}$/
 
     attr_reader :dir
-    def initialize(dir)
+    def initialize(dir, options)
       @dir = dir
       @exclude = ['**/.git']
       @exclude_directories = []
 
       process('.', Git.excludesfile(dir))
       process('.', Git.global_tmignore)
-      if (git_dir = Git.git_dir(dir))
+      if !options[:skip_info_exclude] && (git_dir = Git.git_dir(dir))
         process('.', git_dir + 'info/exclude')
       end
 
@@ -23,7 +23,7 @@ module Mate
         toplevel = dir == path
 
         if !toplevel && (path + '.git').exist?
-          TmProperties.new(path).save
+          TmProperties.new(path, options).save
           Find.prune
         else
           relative_path = path.relative_path_from(dir).to_s
@@ -33,7 +33,7 @@ module Mate
           end
 
           if !toplevel && (path + '.tm_properties').exist?
-            TmProperties.new(path).cleanup
+            TmProperties.new(path, options).cleanup
           end
         end
       end

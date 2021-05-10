@@ -1,11 +1,22 @@
 #!/usr/bin/env ruby
 
+require 'optparse'
+
 require 'mate/bin'
 require 'mate/tm_properties'
 
+options = {}
+OptionParser.new do |op|
+  op.banner = "Usage: #{op.program_name} [options] dir [...]"
+
+  op.on('--no-info-exclude', 'Skip reading .git/info/exclude') do
+    options[:skip_info_exclude] = true
+  end
+end.order!
+
 ARGV.each do |arg|
   if File.directory?(arg)
-    Mate::TmProperties.create(arg)
+    Mate::TmProperties.create(arg, options)
   end
 end
 
