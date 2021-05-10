@@ -8,4 +8,4 @@ When `tm2` command (or `mate` if aliased) is called with one or more paths, for 
 
 ## Copyright
 
-Copyright (c) 2010-2020 Ivan Kuchin. See LICENSE.txt for details.
+Copyright (c) 2010-2021 Ivan Kuchin. See LICENSE.txt for details.
