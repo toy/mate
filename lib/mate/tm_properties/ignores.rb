@@ -40,10 +40,9 @@ module Mate
     end
 
     def lines
-      escaped_dir = glob_escape(dir.to_s)
       [
-        "exclude = '#{escaped_dir}/#{glob_join(@exclude)}' #{GENERATED_SUFFIX}",
-        "excludeDirectories = '#{escaped_dir}/#{glob_join(@exclude_directories)}' #{GENERATED_SUFFIX}",
+        "exclude = '$CWD/#{glob_join(@exclude)}' #{GENERATED_SUFFIX}",
+        "excludeDirectories = '$CWD/#{glob_join(@exclude_directories)}' #{GENERATED_SUFFIX}",
       ].map{ |line| line.gsub("\r", '\r') }
     end
 
