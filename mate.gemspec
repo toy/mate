@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |s|
   s.name        = 'mate'
-  s.version     = '3.0.0'
+  s.version     = '3.1.0'
   s.summary     = %q{TextMate 2 properties builder using git ignores for exclusions}
   s.homepage    = "https://github.com/toy/#{s.name}"
   s.authors     = ['Ivan Kuchin']
