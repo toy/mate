@@ -2,7 +2,17 @@ module Mate
   module Git
     class << self
       def excludesfile(working_dir)
-        expand_path IO.popen(%W[git -C #{working_dir} config --get core.excludesfile], &:read)
+        excludesfile = IO.popen(%W[git -C #{working_dir} config --get core.excludesfile], &:read)
+
+        if excludesfile.empty?
+          xdg_config_home = ENV['XDG_CONFIG_HOME']
+
+          xdg_config_home = '~/.config' if !xdg_config_home || xdg_config_home.empty?
+
+          excludesfile = File.join(xdg_config_home, 'git/ignore')
+        end
+
+        expand_path excludesfile
       end
 
       def global_tmignore
