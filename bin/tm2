@@ -14,10 +14,14 @@ OptionParser.new do |op|
   end
 end.order!
 
-ARGV.each do |arg|
+args = ARGV.flat_map do |arg|
   if File.directory?(arg)
     Mate::TmProperties.create(arg, options)
+  elsif !File.file?(arg) && (m = /\A(.*):(\d+)\z/.match(arg))
+    %W[-l #{$2} #{$1}]
+  else
+    arg
   end
 end
 
-system Mate::Bin.v2, *ARGV
+system Mate::Bin.v2, *args
