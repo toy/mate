@@ -16,8 +16,15 @@ Gem::Specification.new do |s|
     'source_code_uri'   => "https://github.com/toy/#{s.name}",
   }
 
-  s.files         = `git ls-files`.split("\n")
-  s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
-  s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
+  s.files = Dir[*%w[
+    .gitignore
+    LICENSE.txt
+    *.markdown
+    *.gemspec
+    {bin,lib}/**/*
+  ]].reject(&File.method(:directory?))
+
+  s.executables = Dir['bin/*'].map(&File.method(:basename))
+
   s.require_paths = %w[lib]
 end
