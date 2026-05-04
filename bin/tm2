@@ -18,8 +18,8 @@ args = ARGV.flat_map do |arg|
   if File.directory?(arg)
     Mate::TmProperties.create(arg, options)
     arg
-  elsif !File.file?(arg) && (m = /\A(.*):(\d+)\z/.match(arg))
-    %W[-l #{$2} #{$1}]
+  elsif !File.file?(arg) && /\A(?<path>.*):(?<line>\d+)\z/ =~ arg
+    %W[-l #{line} #{path}]
   else
     arg
   end
